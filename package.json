@@ -7,7 +7,7 @@
     "start": "parcel ./src/index.html --open",
     "clean": "rm dist/*.*",
     "build": "parcel build ./src/index.html ./src/twitter-card.png",
-    "firebase": "firebase deploy --only hosting",
+    "ghpages": "TODO",
     "deploy": "npm run clean && npm run build && npm run firebase"
   },
   "keywords": [],
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "canvas": "^2.6.1",
-    "two.js": "^0.7.0-stable.1"
+    "two.js": "^0.7.0-stable.1",
+    "zdog": "^1.1.2"
   }
 }

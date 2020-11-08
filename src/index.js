@@ -1,7 +1,9 @@
-const count = 16;
-const size = 16;
-const spacing = 1;
-const width = count * (size + spacing);
+const count = 8;
+const size = 24;
+const spacing = 2;
+const width = Math.sqrt(3) * (count * (size + spacing) - spacing);
+
+import Zdog from "zdog";
 
 import examples from './examples.json';
 
@@ -10,15 +12,13 @@ const input = document.getElementById('input');
 const editor = document.getElementById('editor');
 const comment = document.getElementById('comment');
 const output = document.getElementById('output');
-const context = output.getContext('2d');
-const dpr = window.devicePixelRatio || 1;
 
 let callback = function () {};
+let loadTime = new Date();  // time at which the site was loaded, used to continue spinning the dots when changing the callback
 let startTime = new Date();
 let code = '';
 
-output.width = output.height = width * dpr;
-context.scale(dpr, dpr);
+// zdog will take care of retina-izing things
 output.style.width = output.style.height = `${width}px`;
 
 function readURL() {
@@ -37,7 +37,7 @@ function updateCallback() {
 
   try {
     callback = runner.eval(`
-      (function f(t,i,x,y) {
+      (function f(t,i,x,y,z) {
         try {
           with (Math) {
             return ${code.replace(/\\/g, ';')};
@@ -58,7 +58,7 @@ input.addEventListener('input', updateCallback);
 input.addEventListener('focus', function () {
   updateComments([
     'hit "enter" to save in URL',
-    'or get <a href="https://twitter.com/aemkei/status/1323399877611708416">more info here</a>'
+    'or get <a href="TODO">more info here</a>'  // TODO link to my tweet, which must mention tixy!
   ]);
 });
 
@@ -71,46 +71,96 @@ editor.addEventListener('submit', (event) => {
   history.replaceState(null, code, url);
 });
 
+
+let illo = new Zdog.Illustration({
+  element: output,  // TODO output
+  zoom: size,
+  resize: true,
+});
+
+let isSpinning = true;
+let dragInitiated = false;
+let hasBeenDragged = false;
+let clickStartTime = 0;
+let clickTime = 0;  // used to pause spinning during clicks
+let viewRotation = new Zdog.Vector();
+let dragStartRX, dragStartRY;
+
+new Zdog.Dragger({
+  startElement: output,
+  onDragStart: function() {
+    dragInitiated = true;
+    hasBeenDragged = false;
+    clickStartTime = new Date();
+    dragStartRX = viewRotation.x;
+    dragStartRY = viewRotation.y;
+  },
+  onDragMove: function( pointer, moveX, moveY ) {
+    if (moveX != 0 && moveY != 0) {
+      let moveRX = moveY / illo.width * Zdog.TAU;
+      let moveRY = moveX / illo.width * Zdog.TAU;
+      viewRotation.x = dragStartRX - moveRX;
+      viewRotation.y = dragStartRY - moveRY;
+      hasBeenDragged = true;
+    }
+  },
+  onDragEnd: function() {
+    dragInitiated = false;
+    clickTime += (new Date() - clickStartTime) / 1000;
+    if (hasBeenDragged) {
+      isSpinning = false;
+    } else {
+      nextExample()
+    }
+  },
+});
+
+let spheres = [];
+for (let x = 0; x < count; x++) {
+  for (let y = 0; y < count; y++) {
+    for (let z = 0; z < count; z++) {
+      spheres.push({
+        x: x,
+        y: y,
+        z: z,
+        zdog: new Zdog.Shape({
+          addTo: illo,
+          stroke: 1,
+          color: '#fff',
+          translate: {
+            x: ((size + spacing) / size) * (x - count/2 + 0.5),
+            y: ((size + spacing) / size) * (y - count/2 + 0.5),
+            z: ((size + spacing) / size) * (z - count/2 + 0.5) },
+        })
+      });
+    }
+  }
+}
+
 function render() {
   const time = (new Date() - startTime) / 1000;
 
-  if (!callback) {
-    window.requestAnimationFrame(render);
-    return;
+  if (!!callback) {
+    let index = 0;
+    spheres.forEach((sphere, index) => {
+      const value = callback(time, index, sphere.x, sphere.y, sphere.z);
+
+      sphere.zdog.stroke = Math.min(1, Math.abs(value));
+
+      sphere.zdog.color = '#FFF'
+      if (value < 0) {
+        sphere.zdog.color = '#F24'
+      }
+    });
   }
 
-  output.width = output.height = width * dpr;
-  context.scale(dpr, dpr);
-  let index = 0;
-  for (let y = 0; y < count; y++) {
-    for (let x = 0; x < count; x++) {
-      const value = callback(time, index, x, y);
-      const offset = size / 2;
-      let color = '#FFF';
-      let radius = (value * size) / 2;
-
-      if (radius < 0) {
-        radius = -radius;
-        color = '#F24';
-      }
-
-      if (radius > size / 2) {
-        radius = size / 2;
-      }
-
-      context.beginPath();
-      context.fillStyle = color;
-      context.arc(
-        x * (size + spacing) + offset,
-        y * (size + spacing) + offset,
-        radius,
-        0,
-        2 * Math.PI
-      );
-      context.fill();
-      index++;
-    }
+  if (isSpinning && !dragInitiated) {
+    const timeSinceLoad = (new Date() - loadTime) / 1000;
+    viewRotation.x = 1/4 * Math.sin(timeSinceLoad - clickTime);
+    viewRotation.y += 0.01;
   }
+  illo.rotate.set( viewRotation );
+  illo.updateRenderGraph();
 
   window.requestAnimationFrame(render);
 }
@@ -162,15 +212,8 @@ function nextExample() {
 
   updateCommentsForCode();
 
-  // history.replaceState({
-  //   code: newCode,
-  //   comment: newComment
-  // }, code, `?code=${encodeURIComponent(newCode)}`);
-
   updateCallback();
 }
-
-output.addEventListener('click', nextExample);
 
 window.onpopstate = function (event) {
   readURL();

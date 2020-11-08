@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=400, user-scalable=no" />
     <meta name="theme-color" content="#000000" />
-    <title>(t,i,x,y) => "creative code golfing"</title>
+    <title>(t,i,x,y,z) => "creative code golfing"</title>
     <meta name="description" content="A minimalist coding environment. Control 16x16 points with a single JavaScript function.">
     <link rel="stylesheet" href="style.styl" inline="inline" />
 
@@ -12,22 +12,22 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@aemkei" />
-    <meta name="twitter:title" content="(t,i,x,y) => 'creative code golfing'" />
-    <meta name="twitter:description" content="A minimalist coding environment. Control 16x16 points with a single JavaScript function. By @aemkei" />
-    <meta name="twitter:image" content="https://tixy.land/twitter-card.png" />
+    <meta name="twitter:site" content="@doersino" />
+    <meta name="twitter:title" content="(t,i,x,y,z) => 'creative code golfing'" />
+    <meta name="twitter:description" content="A minimalist three-dimensional coding environment. Control 8x8x8 points with a single JavaScript function. By @doersino, based on tixy by @aemkei." />
+    <meta name="twitter:image" content="https://doersino.github.io/tixyz/twitter-card.png" />
   </head>
   <body>
     <canvas id="output"></canvas>
 
     <form id="editor">
       <div id="comment">
-        <label for="input">// tixy - creative code golfing</label>
+        <label for="input">// tixyz - creative code golfing</label>
         <label for="input">// click the dots for more</label>
       </div>
 
-      <label id="label" for="input">(t,i,x,y) =></label>
-      <input name="code" id="input" type="text" value="Math.sin(y/8+t)" autocomplete="off" autocapitalize="off" spellcheck="false" autocorrect="off" maxlength="32" />
+      <label id="label" for="input">(t,i,x,y,z) =></label>
+      <input name="code" id="input" type="text" value="Math.sin(x*y*z/64+t)" autocomplete="off" autocapitalize="off" spellcheck="false" autocorrect="off" maxlength="32" />
     </div>
 
     <iframe id="code-runner" sandbox="allow-same-origin"></iframe>
