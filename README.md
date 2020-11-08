@@ -2,7 +2,7 @@
 
 *A minimalist three-dimensional coding environment. Control 8x8x8 dots with a single JavaScript function.*
 
-#### 🔴 Give it a whirl at https://doersino.github.io/tixyz/!
+#### 🔴 Give it a whirl at https://doersino.github.io/tixyz/ or check out [some examples](https://twitter.com/doersino/status/1325494757779513344)!
 
 Let me be abundantly clear: This thing is *wholly* derivative, merely adding a third dimension to Martin Kleppe's creative code golfing tool [tixy](https://twitter.com/aemkei/status/1323399877611708416) by mashing it up with David DeSandro's [Zdog](https://zzz.dog). Those two deserve any and all credit.
 
@@ -53,7 +53,7 @@ To deploy it on GitHub Pages, execute:
 $ npm run deploy
 ```
 
-This will first revert this `dist/` directory to a clean slate, then do `npm run build`, and finally use the `gh-pages` package to commit the now-current `dist/` directory to the `gh-pages` branch of this repository (it will create it if it doesn't already exist).
+This will first revert the `dist/` directory to a clean slate, then do `npm run build`, and finally use the `gh-pages` package to commit the now-current `dist/` directory to the `gh-pages` branch of this repository (it will create it if it doesn't already exist).
 
 
 ## License
