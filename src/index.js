@@ -57,7 +57,7 @@ input.addEventListener('input', updateCallback);
 input.addEventListener('focus', function () {
   updateComments([
     'hit "enter" to save in URL',
-    'or get <a href="TODO">more info here</a>'
+    'or get <a href="https://twitter.com/doersino/status/1325494757779513344">more info here</a>'
   ]);
 });
 
