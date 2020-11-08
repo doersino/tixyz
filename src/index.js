@@ -57,7 +57,7 @@ input.addEventListener('input', updateCallback);
 input.addEventListener('focus', function () {
   updateComments([
     'hit "enter" to save in URL',
-    'or get <a href="TODO">more info here</a>'  // TODO link to my tweet, which must mention tixy!
+    'or get <a href="TODO">more info here</a>'
   ]);
 });
 
@@ -72,7 +72,7 @@ editor.addEventListener('submit', (event) => {
 
 
 let illo = new Zdog.Illustration({
-  element: output,  // TODO output
+  element: output,
   zoom: size,
   resize: true,
 });
