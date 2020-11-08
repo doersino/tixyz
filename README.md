@@ -58,4 +58,4 @@ This will first revert this `dist/` directory to a clean slate, then do `npm run
 
 ## License
 
-[According to tixy's `package.json`](https://github.com/aemkei/tixy/issues/20), it's licensed under the [ISC License](https://www.isc.org/licenses/). *I don't think the changes I've made to it are sufficient for licensing tixyz any differently.*
+[According to tixy's `package.json`](https://github.com/aemkei/tixy/issues/20#issuecomment-723643187), it's licensed under the [ISC License](https://www.isc.org/licenses/). *I don't think the changes I've made to it are sufficient for licensing tixyz any differently.*
