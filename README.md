@@ -1,6 +1,6 @@
 # tixyz
 
-*A minimalist three-dimensional coding environment. Control 8x8x8 points with a single JavaScript function.*
+*A minimalist three-dimensional coding environment. Control 8x8x8 dots with a single JavaScript function.*
 
 #### 🔴 Give it a whirl at https://doersino.github.io/tixyz/!
 
