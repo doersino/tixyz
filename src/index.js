@@ -156,7 +156,7 @@ function render() {
   if (isSpinning && !dragInitiated) {
     const timeSinceLoad = (new Date() - loadTime) / 1000;
     viewRotation.x = 1/4 * Math.sin(timeSinceLoad - clickTime);
-    viewRotation.y += 0.01;
+    viewRotation.y = timeSinceLoad / 2;
   }
   illo.rotate.set( viewRotation );
   illo.updateRenderGraph();
