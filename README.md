@@ -30,13 +30,13 @@ export PATH="./node_modules/.bin:$PATH"
 
 ### Workin' it
 
-Open `src/index.js` (or whatever file you want to work on) in your preferrred text editor. Then execute:
+Open `src/index.js` (or whatever file you want to work on) in your preferred text editor. Then execute:
 
 ```
 $ npm run start
 ```
 
-This will automatically build the project, fire up a basic web server, and ask your browser to nagivate to it. Whenever you save any changes now, the project will be rebuilt and – like magic – your browser will refresh the page.
+This will automatically build the project, fire up a basic web server, and ask your browser to navigate to it. Whenever you save any changes now, the project will be rebuilt and – like magic – your browser will refresh the page.
 
 
 ### Build & Deploy
