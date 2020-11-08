@@ -24,7 +24,7 @@ $ npm install
 If you don't regularly work with Node.js, make sure `./node_modules/.bin/` is on your path:
 
 ```bash
-export PATH="./node_modules/.bin:$PATH
+export PATH="./node_modules/.bin:$PATH"
 ```
 
 
