@@ -18,8 +18,7 @@ let loadTime = new Date();  // time at which the site was loaded, used to contin
 let startTime = new Date();
 let code = '';
 
-// zdog will take care of retina-izing things
-output.style.width = output.style.height = `${width}px`;
+output.style.width = output.style.height = `${width}px`;  // zdog will take care of retina-izing things
 
 function readURL() {
   const url = new URL(document.location);
