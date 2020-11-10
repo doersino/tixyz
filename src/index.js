@@ -15,7 +15,7 @@ const output = document.getElementById('output');
 
 let callback = function () {};
 let loadTime = new Date();  // time at which the site was loaded, used to continue spinning the dots when changing the callback
-let startTime = new Date();
+let startTime = null;
 let code = '';
 
 output.style.width = output.style.height = `${width}px`;  // zdog will take care of retina-izing things
@@ -30,9 +30,19 @@ function readURL() {
 
 readURL();
 
+function checkLength() {
+  if (code.length > 32) {
+    editor.classList.add('over-limit');
+  } else {
+    editor.classList.remove('over-limit');
+  }
+}
+
 function updateCallback() {
   code = input.value;
-  startTime = new Date();
+  startTime = null;
+
+  checkLength();
 
   try {
     callback = runner.eval(`
@@ -51,17 +61,21 @@ function updateCallback() {
   }
 }
 
-updateCallback();
 input.addEventListener('input', updateCallback);
+updateCallback();
 
 input.addEventListener('focus', function () {
+  editor.classList.add('focus');
   updateComments([
     'hit "enter" to save in URL',
     'or get <a href="https://twitter.com/doersino/status/1325494757779513344">more info here</a>'
   ]);
 });
 
-input.addEventListener('blur', updateCommentsForCode);
+input.addEventListener('blur', function () {
+  updateCommentsForCode();
+  editor.classList.remove('focus');
+});
 
 editor.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -109,7 +123,7 @@ new Zdog.Dragger({
     if (hasBeenDragged) {
       isSpinning = false;
     } else {
-      nextExample()
+      nextExample();
     }
   },
 });
@@ -137,7 +151,13 @@ for (let x = 0; x < count; x++) {
 }
 
 function render() {
-  const time = (new Date() - startTime) / 1000;
+  let time = 0;
+
+  if (startTime) {
+    time = (new Date() - startTime) / 1000;
+  } else {
+    startTime = new Date();
+  }
 
   if (!!callback) {
     let index = 0;
@@ -146,9 +166,9 @@ function render() {
 
       sphere.zdog.stroke = Math.min(1, Math.abs(value));
 
-      sphere.zdog.color = '#FFF'
+      sphere.zdog.color = '#FFF';
       if (value < 0) {
-        sphere.zdog.color = '#F24'
+        sphere.zdog.color = '#F24';
       }
     });
   }
@@ -158,7 +178,7 @@ function render() {
     viewRotation.x = 1/4 * Math.sin(timeSinceLoad - clickTime);
     viewRotation.y = timeSinceLoad / 2;
   }
-  illo.rotate.set( viewRotation );
+  illo.rotate.set(viewRotation);
   illo.updateRenderGraph();
 
   window.requestAnimationFrame(render);
