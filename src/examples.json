@@ -34,6 +34,7 @@
   "scan plane": "0.1-(x-y-z+3==floor(12*sin(t)))",
   "wipe": "(x-y-z+3) - sin(t) * 12",
   "soft wipe": "(x-y-z)/24 - sin(t)",
+  "dance\nby @naoto_hieda": "pow(sin(atan2(y-4,x-4)+t-z/4),5)",
   "disco": "sin(t*5) * tan(t*7)",
   "snowflake\n(from specific angles anyway)": "((x&y&z)-0.1)*2",
   "input is limited \nto 32 characters!": "2**(t%8) - x*y*z",
