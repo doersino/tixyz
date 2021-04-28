@@ -160,7 +160,6 @@ function render() {
   }
 
   if (!!callback) {
-    let index = 0;
     spheres.forEach((sphere, index) => {
       const value = callback(time, index, sphere.x, sphere.y, sphere.z);
 
