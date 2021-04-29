@@ -190,10 +190,16 @@ function updateComments(comments) {
 
   if (comments.length === 1) {
     lines[0].innerHTML = '&nbsp;';
+    lines[1].innerHTML = '&nbsp;';
+    lines[2].innerHTML = `// ${comments[0]}`;
+  } else if (comments.length === 2) {
+    lines[0].innerHTML = '&nbsp;';
     lines[1].innerHTML = `// ${comments[0]}`;
+    lines[2].innerHTML = `// ${comments[1]}`;
   } else {
     lines[0].innerHTML = `// ${comments[0]}`;
     lines[1].innerHTML = `// ${comments[1]}`;
+    lines[2].innerHTML = `// ${comments[2]}`;
   }
 }
 
