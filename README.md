@@ -2,7 +2,7 @@
 
 *A minimalist three-dimensional coding environment. Control 8x8x8 dots with a single JavaScript function.*
 
-#### 🔴 Give it a whirl at https://doersino.github.io/tixyz/ or check out [some examples](https://twitter.com/doersino/status/1325494757779513344)!
+#### 🔴 Give it a whirl at https://ghpages.noahdoersing.com/tixyz/ or check out [some examples](https://twitter.com/doersino/status/1325494757779513344)!
 
 Let me be abundantly clear: This thing is *wholly* derivative, merely adding a third dimension to Martin Kleppe's creative code golfing tool [tixy](https://twitter.com/aemkei/status/1323399877611708416) by mashing it up with David DeSandro's [Zdog](https://zzz.dog). Those two deserve any and all credit.
 
